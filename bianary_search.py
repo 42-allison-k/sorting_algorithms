@@ -1,4 +1,5 @@
 from random import randint
+from time import time
 
 
 def searchinsert(nums, target):
@@ -17,13 +18,53 @@ def searchinsert(nums, target):
     return start
 
 
-rand_list_3 = []
-for i in range(1, 10):
-    i = randint(-100, 100)
-    rand_list_3.append(i)
+def linear_search(nums, target):
+    for i, val in enumerate(nums):
+        if val == target:
+            return i
 
-rand_num = randint(-100, 100)
 
-print(searchinsert(rand_list_3, rand_num))
-print(randint(-100, 100))
-print(rand_list_3)
+def create_list(list_len):
+    rand_list = []
+    for i in range(list_len):
+        i = randint(-100, 100)
+        rand_list.append(i)
+        rand_list.sort()
+
+    return rand_list
+
+
+if __name__ == "__main__":
+    rand_num = randint(-100, 100)
+    rand_list_1 = create_list(100)
+    rand_list_2 = create_list(10000)
+    rand_list_3 = create_list(1000000)
+    b_search_times = []
+    l_search_times = []
+
+    search_start = time()
+    searchinsert(rand_list_1, rand_num)
+    b_search_times.append(time() - search_start)
+
+    search_start = time()
+    searchinsert(rand_list_2, rand_num)
+    b_search_times.append(time() - search_start)
+
+    search_start = time()
+    searchinsert(rand_list_3, rand_num)
+    b_search_times.append(time() - search_start)
+
+    search_start = time()
+    linear_search(rand_list_1, rand_num)
+    l_search_times.append(time() - search_start)
+
+    search_start = time()
+    linear_search(rand_list_2, rand_num)
+    l_search_times.append(time() - search_start)
+
+    search_start = time()
+    linear_search(rand_list_3, rand_num)
+    l_search_times.append(time() - search_start)
+
+    print(b_search_times)
+    print(l_search_times)
